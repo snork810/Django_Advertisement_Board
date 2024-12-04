@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Advertisement{% endblock %}
+
+{% block content %}
+<h2>Edit Advertisement: {{ advertisement.title }}</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Changes</button>
+</form>
+<a href="{% url 'board:advertisement_detail' advertisement.pk %}">Cancel</a>
+{% endblock %}
