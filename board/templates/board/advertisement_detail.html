@@ -9,7 +9,8 @@
 <p>Created at: {{ advertisement.created_at }}</p>
 
 {% if advertisement.author == user %}
-<a href="{% url 'board:edit_advertisement' advertisement.pk %}">Edit</a>  <!-- Кнопка редактирования -->
+<a href="{% url 'board:edit_advertisement' advertisement.pk %}">Edit</a> <!-- Кнопка редактирования -->
+<a href="{% url 'board:delete_advertisement' advertisement.pk %}">Delete</a><!-- Кнопка удаления -->
 {% endif %}
 
 <a href="{% url 'board:advertisement_list' %}">Back to Board</a>
