@@ -2,9 +2,10 @@
 
 {% block content %}
 <h2>Add Advertisement</h2>
-<form method="post">
+<form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Submit</button>
 </form>
+<a href="{% url 'board:advertisement_list' %}">Back to Board</a>
 {% endblock %}

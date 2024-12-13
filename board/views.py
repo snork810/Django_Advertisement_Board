@@ -43,6 +43,7 @@ def advertisement_list(request):
 def advertisement_detail(request, pk):
     """Отображение деталей конкретного объявления по его идентификатору (PK)."""
     advertisement = Advertisement.objects.get(pk=pk)
+    print(f"Image URL: {advertisement.image.url if advertisement.image else 'No image'}")
     return render(request, 'board/advertisement_detail.html', {'advertisement': advertisement})
 
 
@@ -50,7 +51,7 @@ def advertisement_detail(request, pk):
 def add_advertisement(request):
     """Добавление нового объявления пользователем. Доступно только для авторизованных пользователей."""
     if request.method == "POST":
-        form = AdvertisementForm(request.POST)
+        form = AdvertisementForm(request.POST, request.FILES)
         if form.is_valid():
             advertisement = form.save(commit=False)
             advertisement.author = request.user
@@ -67,7 +68,7 @@ def edit_advertisement(request, pk):
     advertisement = Advertisement.objects.get(pk=pk)
 
     if request.method == "POST":
-        form = AdvertisementForm(request.POST, instance=advertisement)
+        form = AdvertisementForm(request.POST, request.FILES, instance=advertisement)
         if form.is_valid():
             form.save()
             return redirect('board:advertisement_detail', pk=advertisement.pk)

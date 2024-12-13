@@ -1,3 +1,4 @@
+from django.core.files.storage import FileSystemStorage
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -9,6 +10,8 @@ class Advertisement(models.Model):
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(upload_to='advertisements/', null=True, blank=True, storage=FileSystemStorage())
+
 
     def __str__(self):
         """Возвращает строковое представление объявления (заголовок)."""

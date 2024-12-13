@@ -8,10 +8,13 @@
 <p>Author: {{ advertisement.author.username }}</p>
 <p>Created at: {{ advertisement.created_at }}</p>
 
-{% if advertisement.author == user %}
-<a href="{% url 'board:edit_advertisement' advertisement.pk %}">Edit</a> <!-- Кнопка редактирования -->
-<a href="{% url 'board:delete_advertisement' advertisement.pk %}">Delete</a><!-- Кнопка удаления -->
+{% if advertisement.image %}
+<img src="{{ advertisement.image.url }}"  style="max-width: 1000px;">
 {% endif %}
-
+<p></p>
+{% if advertisement.author == user %}
+<a href="{% url 'board:edit_advertisement' advertisement.pk %}">Edit</a>
+<a href="{% url 'board:delete_advertisement' advertisement.pk %}">Delete</a>
+{% endif %}
 <a href="{% url 'board:advertisement_list' %}">Back to Board</a>
 {% endblock %}

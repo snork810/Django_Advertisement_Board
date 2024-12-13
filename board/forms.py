@@ -9,7 +9,7 @@ class AdvertisementForm(forms.ModelForm):
 
     class Meta:
         model = Advertisement
-        fields = ['title', 'content']  # исключаем 'author', так как он устанавливается автоматически
+        fields = ['title', 'content','author', 'image']
 
 
 class SignUpForm(UserCreationForm):
