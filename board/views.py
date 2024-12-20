@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from board.models import Advertisement
 from board.forms import AdvertisementForm
 from django.contrib.auth.decorators import login_required
@@ -76,6 +76,30 @@ def edit_advertisement(request, pk):
         form = AdvertisementForm(instance=advertisement)
 
     return render(request, 'board/edit_advertisement.html', {'form': form, 'advertisement': advertisement})
+
+
+@login_required
+def like_advertisement(request, pk):
+    advertisement = Advertisement.objects.get(pk=pk)
+
+    if request.user in advertisement.likes.all():
+        advertisement.likes.remove(request.user)
+    else:
+        advertisement.likes.add(request.user)
+
+    return redirect('board:advertisement_detail', pk=advertisement.pk)
+
+
+@login_required
+def dislike_advertisement(request, pk):
+    advertisement = Advertisement.objects.get(pk=pk)
+
+    if request.user in advertisement.dislikes.all():
+        advertisement.dislikes.remove(request.user)
+    else:
+        advertisement.dislikes.add(request.user)
+
+    return redirect('board:advertisement_detail', pk=advertisement.pk)
 
 
 @login_required

@@ -9,12 +9,25 @@
 <p>Created at: {{ advertisement.created_at }}</p>
 
 {% if advertisement.image %}
-<img src="{{ advertisement.image.url }}"  style="max-width: 1000px;">
+<img src="{{ advertisement.image.url }}" style="max-width: 1000px;">
 {% endif %}
 <p></p>
 {% if advertisement.author == user %}
 <a href="{% url 'board:edit_advertisement' advertisement.pk %}">Edit</a>
 <a href="{% url 'board:delete_advertisement' advertisement.pk %}">Delete</a>
 {% endif %}
+
+<h3>Likes: {{ advertisement.total_likes }}</h3>
+<form method="post" action="{% url 'board:like_advertisement' advertisement.pk %}">
+    {% csrf_token %}
+    <button type="submit">Like</button>
+</form>
+
+<h3>Dislikes: {{ advertisement.total_dislikes }}</h3>
+<form method="post" action="{% url 'board:dislike_advertisement' advertisement.pk %}">
+    {% csrf_token %}
+    <button type="submit">Dislike</button>
+</form>
+
 <a href="{% url 'board:advertisement_list' %}">Back to Board</a>
 {% endblock %}

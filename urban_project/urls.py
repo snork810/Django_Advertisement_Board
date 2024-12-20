@@ -21,13 +21,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('board/', include('board.urls', namespace='board')),
-    path('accounts/logout/', board_views.logout_view, name='logout'),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('', board_views.home, name='home'),
-    path('signup/', board_views.signup, name='signup'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+                  path('admin/', admin.site.urls),
+                  path('board/', include('board.urls', namespace='board')),
+                  path('accounts/logout/', board_views.logout_view, name='logout'),
+                  path('accounts/', include('django.contrib.auth.urls')),
+                  path('', board_views.home, name='home'),
+                  path('signup/', board_views.signup, name='signup'),
+              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
