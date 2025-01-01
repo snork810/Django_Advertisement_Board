@@ -1,14 +1,22 @@
 <!-- templates/home.html -->
 {% extends 'base.html' %}
 
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Home Page</title>
 </head>
 <body>
+{% block content %}
 <h1>Welcome to Our Site!</h1>
+{% if username %}
+<p>Hello, {{ username }}!</p>
+<p>You have created {{ advertisement_count }} advertisements.</p>
+{% else %}
+<p>Hello, Guest!</p>
+{% endif %}
 <p><a href="/board/">Go to the board</a></p>
+{%endblock%}
 </body>
 </html>

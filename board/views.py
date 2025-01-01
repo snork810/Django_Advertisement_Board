@@ -30,8 +30,17 @@ def signup(request):
 
 
 def home(request):
-    """Отображение главной страницы сайта."""
-    return render(request, 'home.html')
+    """Отображение главной страницы сайта с данными о пользователе."""
+    if request.user.is_authenticated:  # Проверка, авторизован ли пользователь
+        # Получаем профиль пользователя и количество его объявлений
+        advertisement_count = request.user.profile.advertisement_count
+    else:
+        advertisement_count = 0
+
+    return render(request, 'home.html', {
+        'username': request.user.username,
+        'advertisement_count': advertisement_count,
+    })
 
 
 def advertisement_list(request):
