@@ -8,11 +8,46 @@
 </a>
 {% endif %}
 <ul>
-    {% for advertisement in advertisements %}
+    {% for advertisement in page_obj %}
     <li>
         <a href="{% url 'board:advertisement_detail' pk=advertisement.pk %}">{{ advertisement.title }}</a>
     </li>
     {% endfor %}
 </ul>
+<nav class="st-4">
+    <ul class="paginator justify-content-center">
+        <!-- Кнопка "назад" -->
+        {% if page_obj.has_previous%}
+        <li class="page-item">
+            <a class="page-link" href="?page={{page_obj.previous_page_number}}">Назад</a>
+        </li>
+        {%else%}
+        <li class="page-item disabled">
+            <span class="page-link">Назад</span>
+        </li>
+        {%endif%}
 
+        {%for num in page_obj.paginator.page_range%}
+            {%if num == page_obj.number%}
+            <li class="page-item action">
+                <span class="page-link">{{num}}</span>
+            </li>
+            {%elif num < page_obj.number|add:2 and num > page_obj.number|add:2 %}
+            <li class="page-item">
+                <a class="page-link" href="&page={{num}}">{{num}}</a>
+            </li>
+            {%endif%}
+        {%endfor%}
+               {% if page_obj.has_next%}
+        <li class="page-item">
+            <a class="page-link" href="?page={{page_obj.next_page_number}}">Вперед</a>
+        </li>
+        {%else%}
+        <li class="page-item disabled">
+            <span class="page-link">Вперед</span>
+        </li>
+        {%endif%}
+    </ul>
+
+</nav>
 {% endblock %}

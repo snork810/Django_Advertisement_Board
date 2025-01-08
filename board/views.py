@@ -3,7 +3,7 @@ from board.models import Advertisement
 from board.forms import AdvertisementForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-
+from django.core.paginator import Paginator
 
 def logout_view(request):
     """Выход пользователя из системы и перенаправление на главную страницу."""
@@ -46,7 +46,11 @@ def home(request):
 def advertisement_list(request):
     """Отображение списка всех объявлений на доске."""
     advertisements = Advertisement.objects.all()
-    return render(request, 'board/advertisement_list.html', {'advertisements': advertisements})
+    paginator = Paginator(advertisements, 3)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'board/advertisement_list.html', {'page_obj': page_obj})
 
 
 def advertisement_detail(request, pk):
